@@ -1,0 +1,92 @@
+**QUESTION 1 GOLDMANSACH**
+
+
+
+class Solution{
+  public:
+    vector<vector<string> >
+    Anagrams(vector<string>& string_list) {
+        //code here
+        vector<vector<string>>v;
+        unordered_map<string,vector<string>>m;
+        for(auto str:string_list)
+        {
+            string ans=str;
+            sort(ans.begin(),ans.end());
+            m[ans].push_back(str);
+        }
+        for(auto i:m)
+        {
+            v.push_back(i.second);
+        }
+        return v;
+    }
+};
+
+
+**QUESTION 2 GOLDMANSACH**
+
+
+class Solution {
+  public:
+    int doOverlap(int L1[], int R1[], int L2[], int R2[]) {
+       // code here
+       if(L1[0]>R2[0]||L2[0]>R1[0])
+           return false;
+       if(R1[1]>L2[1]||R2[1]>L1[1])
+           return false;
+       return true;
+   
+    }
+};
+
+**QUESTION 3 GOLDMANSACH**
+
+class Solution{
+  public:
+    int countSubArrayProductLessThanK(const vector<int>& a, int n, long long k) {
+    long long ending=1; 
+    int j =0;
+    int ans=0;
+    for(int i=0;i<n;i++)
+    {
+        ending=a[i]*ending;
+       if(ending>=k)
+       {
+           while(j<=i&&ending>=k)
+           {
+               ending/=a[j++];
+               
+           }
+       }
+       ans+=(i-j+1);
+    }
+    return ans;
+        
+    }
+};
+
+**QUESTION 4 GOLDMANSACH**
+
+
+string encode(string src)
+{     
+ //Your code here 
+ string s="";
+ int x=src.length();
+ {
+     for(int i=0;i<x;i++)
+     {
+         s.push_back(src[i]);
+         int count=1;
+         while(i<x-1 && src[i]==src[i+1])
+         {
+             count++;
+             i++;
+         }
+         char c=count+'0';
+         s.push_back(c);
+     }
+ }
+ return s;
+}     
