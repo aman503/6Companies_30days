@@ -1,0 +1,168 @@
+QUESTION 11 GOLDMANSACH
+
+  int *findTwoElement(int *arr, int n) {
+        // code here
+        unordered_map<int,int>m;
+        int *a=new int[2];
+        for(int i=0;i<n;i++)
+        {
+              m[arr[i]]++;
+            if(m[arr[i]]>1)
+            {
+                a[0]=arr[i];
+               // break;
+            }
+            
+            
+                // m[arr[i]]++;
+            
+            
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(m.find(i+1)!=m.end())
+            continue;
+            else
+            {
+            a[1]=i+1;
+            break;
+            }
+        }
+        return a;
+        
+    }
+
+Question 13 GOLDMANSACH
+
+String decodedString(string s){
+        stack<int> count;  
+        stack<string> result; 
+        int index = 0;  
+        string curr_string = "";   
+        
+        while(index < s.length()) { 
+            if(isdigit(s[index])) {
+                int num = 0;  
+                while(isdigit(s[index])) {
+                    num = 10 * num + (s[index] - '0');  
+                    index++;
+                }
+                count.push(num);
+            }
+            else if(s[index] == '[') {
+                result.push(curr_string); 
+                curr_string = "";
+                index = index + 1;  
+            }
+            else if(s[index] == ']') {
+                int n = count.top(); count.pop();   
+                string res = result.top();result.pop();    
+                for(int i = 0; i < n; ++i) {
+                    res += curr_string;  
+                }
+                curr_string = res;  
+                index = index + 1;  
+            }else {
+                curr_string += s[index]; 
+                index = index + 1;  
+            }
+        }
+        
+        return curr_string;  
+    } 
+
+Question 14 GOLDMANSACH
+
+class Solution {
+public:
+
+int minSubArrayLen(int target, vector<int>& nums) {
+    int len = 0, ans=INT_MAX,sum=0,j=0,i=0;
+    while(j<nums.size())
+    {
+        sum+=nums[j];
+        len+=1;
+          while(sum>=target)
+          {
+                ans = min(ans,len);
+              len-=1;
+              sum-=nums[i++];
+          }
+         j++;
+        if(j>nums.size()-1) break;
+    }
+    if(ans==INT_MAX) return 0;
+    return ans;
+}
+};
+
+QUESTION 15 GOLMANSACH
+
+ bool canPair(vector<int> nums, int k) {
+       if(nums.size()%2==1){
+           return false;
+       }
+      unordered_map<int,int>m;
+      int n =nums.size();
+      int c=0;
+    for(int i=0;i<n;i++){
+      int l=nums[i]%k;
+      int s=k-l;
+      if(s==k){
+          if(m.find(0)!=m.end() && m[0]>0){
+              c++;
+              m[0]--;
+              m[l]--;
+          }
+      }
+     else if(m.find(s)!=m.end() && m[s]>0){
+          c++;
+          m[s]--;
+          m[l]--;
+      }
+      m[l]++;
+      
+    }
+    return c==n/2;
+   }
+
+QUESTION 9 GOLMANSACH
+
+stack<int> s;
+        string res ="";
+        int num=1;
+        for(int i=0;i<S.size();i++){
+            char c=S[i];
+            if(c=='D'){
+                s.push(num++);
+                
+            }
+            else {
+                s.push(num++);
+                while(!s.empty()){
+                    char c1= '0'+s.top();
+                    res.push_back(c1);
+                    s.pop();
+                }
+            }
+        }
+        s.push(num++);
+        while(!s.empty()){
+            
+            char c1= '0'+s.top();
+            res.push_back(c1);
+            s.pop();
+                    
+                }
+        return res;
+
+QUESTION 12 GOLDMANSACH
+
+  class Solution {
+ public:
+   long long squaresInChessBoard(long long n) {
+
+return n*(n+1)*(2*n+1)/6;
+
+   }
+};
