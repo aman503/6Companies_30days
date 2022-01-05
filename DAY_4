@@ -1,3 +1,32 @@
+QUESTION 10 GOLMANSACH
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    vector<int>arr{45,3,43,90,67,38333,482,991,2424,334,3452,589,12,15,87,27,36,89,65,96,1284,23,40,60,50,64};
+    priority_queue<int>g;
+    int k=10;
+    for(int i=0;i<arr.size();i++)
+    {
+        g.push(arr[i]);
+        if(g.size()>k)
+        {
+            g.pop();
+        }
+    }
+    for(int i=0;i<10;i++)
+    {
+        cout<<g.top();
+        g.pop();
+        
+    }
+    return 0;
+}
+
+
 QUESTION 11 GOLDMANSACH
 
   int *findTwoElement(int *arr, int n) {
