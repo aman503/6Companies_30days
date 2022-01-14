@@ -1,0 +1,60 @@
+class Solution
+{
+	public:
+    //Function to find if the given edge is a bridge in graph.
+    int res = 0;
+    int bridge(int u, vector<int> adj[], bool vis[], int disc[], int low[], int parent[], int c, int d)
+    {
+        
+        static int time = 0;
+        vis[u] = true;
+        disc[u] = low[u] = ++time;
+        
+        
+        for(auto v : adj[u])
+        {
+            if(vis[v] == false)
+            {
+                parent[v] = u;
+                bridge(v,adj,vis,disc,low,parent,c,d);
+                low[u] = min(low[u], low[v]);
+                
+                if (low[v] > disc[u]) 
+                {
+                    if((u == c and v == d) or (u == d and v == c))
+                    res = 1;
+                }
+                   
+            }
+            else if(v != parent[u])
+            {
+                low[u] = min(low[u], disc[v]);
+            }
+        }
+        return res;
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+        // Code here
+        bool vis[V];
+        int disc[V];
+        int low[V];
+        int parent[V];
+        
+        for (int i = 0; i < V; i++) 
+        { 
+            parent[i] = -1; 
+            vis[i] = false;
+            disc[i] = 0;
+            low[i] = 0;
+        }
+        for(int i = 0; i < V; i++)
+        {
+            if(vis[i] == false)
+            {
+                res = bridge(i,adj, vis, disc, low, parent,c,d);
+            }
+        }
+        return res;
+    }
+};
