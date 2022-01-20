@@ -1,0 +1,64 @@
+// { Driver Code Starts
+//Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+//User function template for C++
+
+class Solution
+{
+    public:
+    string nextPalin(string str)
+    {
+        if(str.size() <= 3)
+        {
+            return "-1";
+        }
+        
+        string res;
+        
+        int mid = str.size() / 2 - 1;
+        
+        string firstHalf = str.substr(0, mid + 1);
+        string prevFirstHalf = firstHalf;
+        
+        next_permutation(firstHalf.begin(), firstHalf.end());
+        
+        if(firstHalf <= prevFirstHalf)
+        {
+            return "-1";
+        }
+        
+        res += firstHalf;
+        
+        if(str.size() % 2 == 1)
+        {
+            res += str[str.size() / 2];
+        }
+        
+        string secondHalf = firstHalf;
+        reverse(secondHalf.begin(), secondHalf.end());
+        
+        res += secondHalf;
+        
+        return res;
+    }
+};
+
+// { Driver Code Starts.
+
+int main() {
+
+    int t;
+    cin >> t;
+    while(t--){
+        string s;
+        cin >> s;
+        Solution obj;
+        cout << obj.nextPalin(s) << endl;
+    }
+    return 0;
+}  // } Driver Code Ends
