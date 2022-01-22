@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    bool isValid(vector<int> &weights, int cap, int days){
+           int day = 1, sum =0, i=0;
+          while(i<weights.size()){
+               sum += weights[i];
+               if(sum > cap){ day++; sum = 0; i--; }
+                  i++;
+          }        
+             return day <= days;
+    }
+    
+    int shipWithinDays(vector<int>& weights, int days) {
+         
+         int total_sum = 0;
+         for(int ele : weights){
+             total_sum += ele;
+         }
+         int min_cap = *max_element(weights.begin(),weights.end());
+         int max_cap = total_sum;
+         int mid;
+         int cap;
+        
+        // edge case
+        if(days == 1) return total_sum;
+        
+        while(min_cap <= max_cap){
+            mid = min_cap + (max_cap - min_cap) / 2;
+            
+            if(isValid(weights, mid, days)){
+                cap = mid;
+                max_cap = mid - 1;
+            }
+            
+            else min_cap = mid + 1;
+        }
+        
+        return cap;
+         
+    }
+};
