@@ -1,0 +1,37 @@
+class Solution {
+public:
+
+int findCircleNum(vector<vector<int>>& ic) {
+    unordered_map<int,vector<int>>mp;
+    for(int i=0;i<ic.size();i++)
+    {
+        for(int j=0;j<ic[i].size();j++)
+        {
+            if(ic[i][j]==1)
+            {
+                mp[i].push_back(j);
+            }
+        }
+    }
+    vector<int>vis(ic.size(),false);
+    int cnt=0;
+    for(int i=0;i<ic.size();i++)
+    {
+         if(!vis[i])
+         {
+             dfs(mp,i,vis);
+             cnt++;
+         }
+    }
+    return cnt;
+}
+void dfs(unordered_map<int,vector<int>> &mp ,int st , vector<int> &vis)
+{
+    vis[st]=true;
+    for(auto v:mp[st])
+    {
+        if(!vis[v])
+            dfs(mp, v, vis);
+    }
+}
+};
