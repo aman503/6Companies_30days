@@ -1,0 +1,23 @@
+ int helper(Node* node){
+        if(node == NULL)
+            return 0;
+            
+        int left = helper(node->left);
+        int right = helper(node->right);
+        int temp = node->data;
+        
+        if(left == 0 && right == 0){
+            node->data = 0;
+            return temp;
+        }
+        else {
+            node->data = left + right;
+            return temp + left + right;
+        }
+        
+    }
+    void toSumTree(Node *node)
+    {
+        // Your code here
+        helper(node);
+    }
