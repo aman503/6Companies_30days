@@ -1,0 +1,49 @@
+public class Solution {
+    public int Divide(int dividend, int divisor) {
+        // This special corner case must be handled separately, because
+        // the true math result -2147843648 / -1 = 2147843648 is overflowing
+        // Personally, I think this case make non sense for most people except
+		// for compiler engineers. I cannot accept -2147843648 / -1 = 2147843647
+        if (dividend == Int32.MinValue && divisor == -1)
+            return Int32.MaxValue;
+        
+        // Find how many '-'s and convert all inputs to negative
+        // Why, this is merely because we cannot turn -2147843648
+        // to 2147843648.
+        int sign = 2;
+        if (dividend > 0) {
+            dividend = -dividend;
+            sign -= 1;
+        }
+        if (divisor > 0) {
+            divisor = -divisor;
+            sign -= 1;
+        }
+        
+        int output = 0;
+        // The main loop, goal is to sub divisor from dividend, and use
+        // output to record how many divisors we subed from.
+        // Each time sub 1 x divisor is too slow, we first find the
+        // biggest, yet safest (divisor x ( 1 << shifts)), which is barely
+        // bigger(abs value) then half of dividend. And repeat till no more
+        // divisor could be subed from.
+        while (dividend <= divisor) {
+            int shifts = 0;
+            int half = dividend >> 1;
+            int dp = divisor;
+            while (dp > half) {
+                dp <<= 1;
+                shifts++;
+            }
+            //Console.WriteLine($"shifts={shifts}, half={half}, dp={dp}");
+            output += (1 << shifts);
+            dividend -= dp;
+            //Console.WriteLine($"output={output}, dividend={dividend}");
+        }
+        
+        //Restore the sign back to final result.
+        if (sign == 1)
+            output = -output;
+        return output;
+    }
+}
